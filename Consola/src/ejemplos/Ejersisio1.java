@@ -5,22 +5,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Scanner;
 
-public class Consola {
+public class Ejersisio1 {
 
 	public static void main(String args[]) {
 		
 		ProcessBuilder processBuilder = new ProcessBuilder();
-		String ruta;
+		String ruta = "/Users";
 		
 		//Validamos que la ruta exista.
 		do {
 			ruta = leerRuta();
-		}while(checkRuta(ruta));
+			System.out.println();
+		}while(!checkRuta(ruta));
 
 		// -- Linux / MacOS --
 		
 		// Run a shell command
-		processBuilder.command("bash", "-c", "ls -lsof " + leerRuta());
+		processBuilder.command("bash", "-c", "ls -lsof " + ruta);
 
 		// Run a shell script
 		//processBuilder.command("path/to/hello.sh");
@@ -38,7 +39,7 @@ public class Consola {
 
 			Process process = processBuilder.start();
 
-			StringBuilder output = new StringBuilder();
+			StringBuilder buffer = new StringBuilder();
 
 			BufferedReader reader = new BufferedReader(
 					new InputStreamReader(process.getInputStream()));
@@ -46,11 +47,11 @@ public class Consola {
 			//Guardamos en un buffer la salida del proceso
 			String line;
 			while ((line = reader.readLine()) != null) {
-				output.append(line + "\n");
+				buffer.append(line + "\n");
 			}
 
 			if (process.waitFor() == 0) {
-				System.out.println(output);
+				System.out.println(buffer);
 			} else {
 				System.out.println("Se lio chiquita...");
 			}
@@ -65,7 +66,6 @@ public class Consola {
 	
 	private static String leerRuta() {	
 		//No cierren nunca el System.in si no quieren cargarse el flujo estandar (teclado)
-		@SuppressWarnings("resource")
 		Scanner sc = new Scanner(System.in);		
 		System.out.println("Introduce la ruta a listar: ");		
 		return sc.nextLine();
