@@ -42,15 +42,13 @@ public class Ejercicio3 {
 				buffer.append(line + "\n");
 			}
 
-			if (process.waitFor() == 0) {
-				System.out.println(buffer);
+			if (checkConectividad(buffer.toString())) {
+				System.out.println("Hay conectividad con " + IP);
 			} else {
 				System.out.println("Se lio chiquita...");
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 	}
@@ -61,6 +59,10 @@ public class Ejercicio3 {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce la IP a comprobar: ");
 		return sc.nextLine();
+	}
+
+	private static boolean checkConectividad(String buffer) {
+		return buffer.contains("0.0% packet loss");
 	}
 
 }
