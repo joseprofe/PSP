@@ -18,7 +18,6 @@ public class Main {
 		for(int i = 0 ; i < N_HILOS ; i++){
 			hilos[i] = new HiloIncrementador(contadorConc, i+1);
 		}
-		
 		//Lanzando hilos
 		for(int i = 0 ; i < N_HILOS ; i++){
 			hilos[i].start();
